@@ -1,8 +1,3 @@
-// Il computer deve generare 16 numeri casuali da 1 a 100.
-// In seguito deve chiedere all’utente di inserire per 84 volte un numero da 1 a 100, se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti continua chiedendo all’utente un altro numero.
-// La partita termina quando il giocatore inserisce un numero “vietato”, ovvero presente nella lista di numeri random, o raggiunge il numero massimo possibile di tentativi consentiti.
-// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-
 // GENERARE 16 NUMERI CASUALI DA 1 a 100
 
 function getRandomNumber() {
@@ -18,5 +13,16 @@ for (var i = 0; i <= 15; i++) {
 console.log(randomNumber);
 
 // CHIEDE ALL'UTENTE 34 VOLTE DI INSERIRE UN NUMERO
+// se il numero inserito nel prompt è presente in array, hai perso. Se il numero inserito non è presente in array, pushiamo il punteggio 1 in arrey punteggio. per 34 volte.
+var checked = false;
+for (var i = 0; i < 84 && checked == false; i++) {
+  userNumber = parseInt(prompt("inserisci un numero"));
+  for (var k = 0; k < randomNumber.length && checked == false; k++){
+    if (userNumber == randomNumber[k]) {
+      checked = true;
+    }
+  }
+}
 
-var userNumber = parseInt(prompt('Inserisci un numero'))
+console.log('il tuo punteggio è', i);
+console.log(checked);
