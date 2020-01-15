@@ -11,6 +11,7 @@ var maxLevel; //numeri massimi generati in base alla difficoltà
 while (isInTheRange(0, 2, level) == false){
   var level = parseInt(prompt('Indica un livello di difficoltà del tuo gioco da 0 a 2'))
 }
+console.log('difficolta' + level);
 // Con difficoltà 0 => numeri vietati da 1 a 100, tentativi 84
 // con difficoltà 1 => numeri vietati  da 1 a 80, tentativi 64
 // con difficoltà 2 => numeri vietati  da 1 a 50, tentativi 34
@@ -27,19 +28,38 @@ if (level == 0) {
   minLevel = 1;
   maxLevel = 50;
 }
-
+console.log('tantativi' + attempts);
+console.log('numero minimo' + minLevel);
+console.log('numero massimo' + maxLevel);
 // IL GIOCO
 //Genero 16 numeri random da inserire in array e verifico che non ci siano doppioni. Se è già presente nell'array, lo pusho.
 for (var i = 0; i <= 15; i++) {
-  var randomNumber = getRandomNumber(1, 100)
+  var randomNumber = getRandomNumber(minLevel, maxLevel)
   var duplicate = isInArray(tabooNumbers, randomNumber)
   if (duplicate == false) {
     tabooNumbers.push(randomNumber)
   }
 }
-// CHIEDE ALL'UTENTE 34 VOLTE DI INSERIRE UN NUMERO
-// se il numero inserito nel prompt è presente in array, hai perso. Se il numero inserito non è presente in array, pushiamo il punteggio 1 in arrey punteggio. per 34 volte.
+console.log('i numeri vietati sono' + tabooNumbers);
+//Chiedo all'utente di inserire TOT numeri. Se il numero è presente tra i tabooNumbers, l'utente ha perso. Se il numero non è presente, l'utente accumula un +1 di punteggio. Esauriti i tentativi, il gioco si ferma.
 
+var tabooFound = false;
+for (var i = 0; i < attempts && tabooFound == false; i++) {
+  var promptNumber = false
+  while (isInTheRange(minLevel, maxLevel, promptNumber) == false) {
+    promptNumber = parseInt(prompt('inserisci un numero da 1 a 100'));
+  } if (isInArray(userNumbers, promptNumber) == false) {
+      userNumbers.push(promptNumber)
+      if (isInArray(tabooNumbers, promptNumber) == true){
+        console.log('hai perso');
+        tabooFound = true;
+      } else {
+        points++
+      }
+  }
+}
+console.log('i numeri inseriti sono', userNumbers);
+console.log('il tuo punteggio è', points);
 
 // LE FUNZIONI
 // funzione che genera numeri casuali
