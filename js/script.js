@@ -31,18 +31,20 @@ if (level == 0) {
 console.log('tantativi' + attempts);
 console.log('numero minimo' + minLevel);
 console.log('numero massimo' + maxLevel);
+
 // IL GIOCO
 //Genero 16 numeri random da inserire in array e verifico che non ci siano doppioni. Se è già presente nell'array, lo pusho.
-for (var i = 0; i <= 15; i++) {
+for (var i = 0; tabooNumbers.length <= 15; i++) {
   var randomNumber = getRandomNumber(minLevel, maxLevel)
   var duplicate = isInArray(tabooNumbers, randomNumber)
   if (duplicate == false) {
     tabooNumbers.push(randomNumber)
   }
 }
-console.log('i numeri vietati sono' + tabooNumbers);
-//Chiedo all'utente di inserire TOT numeri. Se il numero è presente tra i tabooNumbers, l'utente ha perso. Se il numero non è presente, l'utente accumula un +1 di punteggio. Esauriti i tentativi, il gioco si ferma.
 
+console.log('i numeri vietati sono' + tabooNumbers.sort());
+
+//Chiedo all'utente di inserire TOT numeri. Se il numero è presente tra i tabooNumbers, l'utente ha perso. Se il numero non è presente, l'utente accumula un +1 di punteggio. Esauriti i tentativi, il gioco si ferma.
 var tabooFound = false;
 for (var i = 0; i < attempts && tabooFound == false; i++) {
   var promptNumber = false
@@ -51,7 +53,7 @@ for (var i = 0; i < attempts && tabooFound == false; i++) {
   } if (isInArray(userNumbers, promptNumber) == false) {
       userNumbers.push(promptNumber)
       if (isInArray(tabooNumbers, promptNumber) == true){
-        console.log('hai perso');
+        console.log('hai perso!Il tuo punteggio è', points);
         tabooFound = true;
       } else {
         points++
@@ -59,8 +61,10 @@ for (var i = 0; i < attempts && tabooFound == false; i++) {
   }
 }
 console.log('i numeri inseriti sono', userNumbers);
-console.log('il tuo punteggio è', points);
 
+if (userNumbers == attempts) {
+  console.log('Hai vinto!Hai raggiunto il punteggio massimo.Il tuo punteggio è:', points);
+}
 // LE FUNZIONI
 // funzione che genera numeri casuali
 function getRandomNumber(min, max) {
@@ -68,6 +72,7 @@ function getRandomNumber(min, max) {
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min)) + min;
 }
+
 // CREARE FUNZIONE CHE CERCA IL NUMERO IN ARRAY
 //valore true se è presente in ARRAY
 //valore false se non è presente
@@ -82,6 +87,7 @@ function isInArray(array, element) {
   }
   return result;
 }
+
 // FUNZIONE CONTROLLO NUMERO IN RANGE
 //valore true se è in range
 //valore false se non è in range
